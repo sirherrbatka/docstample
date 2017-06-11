@@ -107,7 +107,8 @@
                                           (type operator-node)
                                           output
                                           (forms list))
-  (string-trim '(#\Newline #\Space)
+  (string-trim '(#\Space #\Newline #\Backspace #\Tab 
+                 #\Linefeed #\Page #\Return #\Rubout)
                (apply #'mechanics-generate-function-documentation-string
                       output
                       forms)))
