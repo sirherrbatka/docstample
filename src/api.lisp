@@ -4,6 +4,7 @@
 (defvar <function> (make-instance 'function-node))
 (defvar <generic> (make-instance 'generic-node))
 (defvar <class> (make-instance 'class-node))
+(defvar <macro> (make-instance 'macro-node))
 
 
 (defun set-documentation (symbol generator type accumulator &rest forms)

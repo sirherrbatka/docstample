@@ -9,6 +9,7 @@
    #:<function>
    #:<generic>
    #:<class>
+   #:<macro>
 
    #:set-documentation
    #:fundamental-accumulator
@@ -19,5 +20,6 @@
    #:operator-node
    #:function-node
    #:class-node
+   #:macro-node
    #:fundamental-accumulator
    #:fundamental-node))

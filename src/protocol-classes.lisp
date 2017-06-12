@@ -19,6 +19,9 @@
 (defclass function-node (operator-node)
   ())
 
+(defclass macro-node (operator-node)
+  ())
+
 (defclass class-node (fundamental-node)
   ())
 
@@ -35,4 +38,8 @@
 
 (defmethod initialize-instance ((obj class-node) &rest initargs)
   (write-symbol 'class obj)
+  (call-next-method))
+
+(defmethod initialize-instance ((obj macro-node) &rest initargs)
+  (write-symbol 'function obj)
   (call-next-method))
