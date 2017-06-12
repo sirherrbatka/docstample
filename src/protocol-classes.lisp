@@ -37,7 +37,7 @@
   (call-next-method))
 
 (defmethod initialize-instance ((obj class-node) &rest initargs)
-  (write-symbol 'class obj)
+  (write-symbol 'type obj)
   (call-next-method))
 
 (defmethod initialize-instance ((obj macro-node) &rest initargs)

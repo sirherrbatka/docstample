@@ -53,7 +53,10 @@
 
 
 (defun mechanics-format-exceptional-situations (output exceptional-situations)
-  (format output "~%Exceptional Situations~%~a~%" exceptional-situations))
+  (format output "~%Exceptional Situations~% ~{~a~%~}~%"
+          (if (listp exceptional-situations)
+              exceptional-situations
+              (list exceptional-situations))))
 
 
 (defun mechanics-format-description (output description)
