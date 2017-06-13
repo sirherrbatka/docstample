@@ -131,23 +131,53 @@
   (get-output-stream-string output))
 
 
+(defun mechanics-generate-class-documentation-string (output &key
+                                                               examples
+                                                               description
+                                                               exceptional-situations
+                                                               notes)
+  (unless (null description)
+    (mechanics-format-description output description))
+  (unless (null examples)
+    (mechanics-format-examples output examples))
+  (unless (null notes)
+    (mechanics-format-notes output notes))
+  (unless (null exceptional-situations)
+    (mechanics-format-exceptional-situations output exceptional-situations))
+  (get-output-stream-string output))
+
+
+(defmethod generate-documentation-string :around ((generator mechanics-generator)
+                                                  (type fundamental-node)
+                                                  output
+                                                  (forms list))
+  (string-trim '(#\Space #\Newline #\Backspace #\Tab
+                 #\Linefeed #\Page #\Return #\Rubout)
+               (call-next-method)))
+
+
+(defmethod generate-documentation-string ((generator mechanics-generator)
+                                          (type class-node)
+                                          output
+                                          (forms list))
+  (apply #'mechanics-generate-class-documentation-string
+         output
+         forms))
+
+
 (defmethod generate-documentation-string ((generator mechanics-generator)
                                           (type operator-node)
                                           output
                                           (forms list))
-  (string-trim '(#\Space #\Newline #\Backspace #\Tab
-                 #\Linefeed #\Page #\Return #\Rubout)
-               (apply #'mechanics-generate-function-documentation-string
-                      output
-                      forms)))
+  (apply #'mechanics-generate-function-documentation-string
+         output
+         forms))
 
 
 (defmethod generate-documentation-string ((generator mechanics-generator)
                                           (type macro-node)
                                           output
                                           (forms list))
-  (string-trim '(#\Space #\Newline #\Backspace #\Tab
-                 #\Linefeed #\Page #\Return #\Rubout)
-               (apply #'mechanics-generate-macro-documentation-string
-                      output
-                      forms)))
+  (apply #'mechanics-generate-macro-documentation-string
+         output
+         forms))
