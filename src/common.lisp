@@ -15,6 +15,7 @@
                                        packages-table)))
         (gethash id types-table)))))
 
+
 (defmethod accumulate-node ((accumulator categorized-accumulator)
                             (symbol symbol)
                             (type fundamental-node)
@@ -28,5 +29,5 @@
            (types-table (ensure (gethash type packages-table)
                           (make-hash-table :test 'equal))))
       (setf (gethash symbol types-table)
-            forms))))
+            (make-accumulated-node symbol type forms)))))
 

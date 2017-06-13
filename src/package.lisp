@@ -15,6 +15,7 @@
    #:fundamental-accumulator
    #:make-accumulator
    #:generate-documentation-string
+   #:query-node
 
    #:generic-node
    #:operator-node
@@ -22,4 +23,8 @@
    #:class-node
    #:macro-node
    #:fundamental-accumulator
-   #:fundamental-node))
+   #:fundamental-node
+   #:accumulated-node
+   #:access-symbol
+   #:access-type
+   #:access-forms))
