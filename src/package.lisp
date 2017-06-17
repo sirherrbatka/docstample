@@ -16,6 +16,7 @@
    #:make-accumulator
    #:generate-documentation-string
    #:query-node
+   #:read-symbol
 
    #:generic-node
    #:operator-node
