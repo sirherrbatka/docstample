@@ -21,7 +21,7 @@
                             (type fundamental-node)
                             (forms list))
   (let ((package (symbol-name (symbol-package symbol)))
-        (type (read-symbol type)))
+        (type (type-of type)))
     (let* ((packages-table (ensure
                                (gethash package
                                         (read-documented-elements accumulator))
