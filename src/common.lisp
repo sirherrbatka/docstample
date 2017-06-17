@@ -3,7 +3,7 @@
 
 (defclass categorized-accumulator (fundamental-accumulator)
   ((%documented-elements :type hash-table
-                         :initform (make-hash-table)
+                         :initform (make-hash-table :test 'equal)
                          :reader read-documented-elements)))
 
 
@@ -20,7 +20,7 @@
                             (symbol symbol)
                             (type fundamental-node)
                             (forms list))
-  (let ((package (symbol-package symbol))
+  (let ((package (symbol-name (symbol-package symbol)))
         (type (read-symbol type)))
     (let* ((packages-table (ensure
                                (gethash package
