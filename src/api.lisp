@@ -1,10 +1,10 @@
 (in-package #:docstample)
 
 
-(defvar <function> (make-instance 'function-node))
-(defvar <generic> (make-instance 'generic-node))
-(defvar <class> (make-instance 'class-node))
-(defvar <macro> (make-instance 'macro-node))
+(def <function> (make-instance 'function-node))
+(def <generic> (make-instance 'generic-node))
+(def <class> (make-instance 'class-node))
+(def <macro> (make-instance 'macro-node))
 
 
 (defun set-documentation (symbol generator type accumulator &rest forms)

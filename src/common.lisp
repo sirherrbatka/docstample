@@ -20,14 +20,13 @@
                             (symbol symbol)
                             (type fundamental-node)
                             (forms list))
-  (let ((package (symbol-name (symbol-package symbol)))
-        (type (type-of type)))
-    (let* ((packages-table (ensure
-                               (gethash package
-                                        (read-documented-elements accumulator))
-                             (make-hash-table)))
-           (types-table (ensure (gethash type packages-table)
-                          (make-hash-table :test 'equal))))
-      (setf (gethash symbol types-table)
-            (make-accumulated-node symbol type forms)))))
+  (let* ((package (symbol-name (symbol-package symbol)))
+         (packages-table (ensure
+                             (gethash package
+                                      (read-documented-elements accumulator))
+                           (make-hash-table)))
+         (types-table (ensure (gethash type packages-table)
+                        (make-hash-table :test 'equal))))
+    (setf (gethash symbol types-table)
+          (make-accumulated-node symbol type forms))))
 
