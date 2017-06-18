@@ -17,16 +17,17 @@
 
 
 (defmethod accumulate-node ((accumulator categorized-accumulator)
-                            (symbol symbol)
+                            name
                             (type fundamental-node)
                             (forms list))
-  (let* ((package (symbol-name (symbol-package symbol)))
+  (let* ((symbol (if (symbolp name) name (second name)))
+         (package (symbol-package symbol))
          (packages-table (ensure
                              (gethash package
                                       (read-documented-elements accumulator))
-                           (make-hash-table)))
+                           (make-hash-table :test 'eq)))
          (types-table (ensure (gethash type packages-table)
-                        (make-hash-table :test 'equal))))
-    (setf (gethash symbol types-table)
-          (make-accumulated-node symbol type forms))))
+                        (make-hash-table :test 'eq))))
+    (setf (gethash name types-table)
+          (make-accumulated-node name type forms))))
 
