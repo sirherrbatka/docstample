@@ -31,3 +31,16 @@
     (setf (gethash (~> symbol symbol-name) types-table)
           (make-accumulated-node name type forms))))
 
+
+(defmethod generate-documentation-string ((generator fundamental-generator)
+                                          (type fundamental-node)
+                                          (output fundamental-output)
+                                          (forms list))
+  (let* ((visitor (get-visitor generator))
+         (order (get-visiting-order visitor type)))
+    (dolist (item order)
+      (let ((f (getf forms item)))
+        (unless (null f)
+          (visit visitor type item f output)))))
+  output)
+

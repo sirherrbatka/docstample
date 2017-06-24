@@ -5,6 +5,25 @@
   ())
 
 
+(defclass mechanics-generator-visitor (fundamental-plist-visitor)
+  ())
+
+
+(def <visitor> (make 'mechanics-generator-visitor))
+
+
+(defmethod get-visiting-order list ((visitor mechanics-generator-visitor) (type operator-node))
+  '(:syntax :arguments-and-values :examples
+    :description :notes))
+
+
+(defmethod get-visiting-order list ((visitor mechanics-generator-visitor) (type function-node))
+  `(:returns :side-effects :exceptional-situations))
+
+
+(defmethod get-visitor ((visitor mechanics-generator))
+  <visitor>)
+
 (defun mechanics-format-syntax (output syntax)
   (if (listp syntax)
       (format output "~%Syntax~%~{ ~a~%~}~%" syntax)
@@ -79,81 +98,20 @@
   (format output "~%Construct~% ~a~%~%" construction))
 
 
-(defun mechanics-generate-function-documentation-string (output &key
-                                                                  syntax
-                                                                  arguments-and-values
-                                                                  examples
-                                                                  description
-                                                                  exceptional-situations
-                                                                  notes
-                                                                  side-effects
-                                                                  returns)
-  (unless (null syntax)
-    (mechanics-format-syntax output syntax))
-  (unless (null arguments-and-values)
-    (mechanics-format-arguments-and-values output arguments-and-values))
-  (unless (null description)
-    (mechanics-format-description output description))
-  (unless (null returns)
-    (mechanics-format-returns output returns))
-  (unless (null examples)
-    (mechanics-format-examples output examples))
-  (unless (null notes)
-    (mechanics-format-notes output notes))
-  (unless (null exceptional-situations)
-    (mechanics-format-exceptional-situations output exceptional-situations))
-  (mechanics-format-side-effects output side-effects)
-  (get-output-stream-string output))
-
-
-(defun mechanics-generate-macro-documentation-string (output &key
-                                                               syntax
-                                                               arguments-and-values
-                                                               examples
-                                                               description
-                                                               exceptional-situations
-                                                               notes
-                                                               side-effects
-                                                               returns)
-  (unless (null syntax)
-    (mechanics-format-syntax output syntax))
-  (unless (null arguments-and-values)
-    (mechanics-format-arguments-and-values output arguments-and-values))
-  (unless (null description)
-    (mechanics-format-description output description))
-  (unless (null examples)
-    (mechanics-format-examples output examples))
-  (unless (null notes)
-    (mechanics-format-notes output notes))
-  (unless (null exceptional-situations)
-    (mechanics-format-exceptional-situations output exceptional-situations))
-  (mechanics-format-side-effects output side-effects)
-  (get-output-stream-string output))
-
-
 (defun mechanics-generate-class-documentation-string (output &key
                                                                examples
                                                                description
                                                                exceptional-situations
                                                                notes)
-  (unless (null description)
-    (mechanics-format-description output description))
-  (unless (null examples)
-    (mechanics-format-examples output examples))
-  (unless (null notes)
-    (mechanics-format-notes output notes))
-  (unless (null exceptional-situations)
-    (mechanics-format-exceptional-situations output exceptional-situations))
-  (get-output-stream-string output))
-
-
-(defmethod generate-documentation-string :around ((generator mechanics-generator)
-                                                  (type fundamental-node)
-                                                  output
-                                                  (forms list))
-  (string-trim '(#\Space #\Newline #\Backspace #\Tab
-                 #\Linefeed #\Page #\Return #\Rubout)
-               (call-next-method)))
+  (let ((output (read-stream output)))
+    (unless (null description)
+      (mechanics-format-description output description))
+    (unless (null examples)
+      (mechanics-format-examples output examples))
+    (unless (null notes)
+      (mechanics-format-notes output notes))
+    (unless (null exceptional-situations)
+      (mechanics-format-exceptional-situations output exceptional-situations))))
 
 
 (defmethod generate-documentation-string ((generator mechanics-generator)
@@ -162,22 +120,70 @@
                                           (forms list))
   (apply #'mechanics-generate-class-documentation-string
          output
-         forms))
+         forms)
+  output)
 
 
-(defmethod generate-documentation-string ((generator mechanics-generator)
-                                          (type operator-node)
-                                          output
-                                          (forms list))
-  (apply #'mechanics-generate-function-documentation-string
-         output
-         forms))
+(defmethod visit ((visitor mechanics-generator-visitor)
+                  (type operator-node)
+                  (symbol (eql :arguments-and-values))
+                  data
+                  (output stream-output))
+  (mechanics-format-arguments-and-values (read-stream output) data))
 
 
-(defmethod generate-documentation-string ((generator mechanics-generator)
-                                          (type macro-node)
-                                          output
-                                          (forms list))
-  (apply #'mechanics-generate-macro-documentation-string
-         output
-         forms))
+(defmethod visit ((visitor mechanics-generator-visitor)
+                  (type operator-node)
+                  (symbol (eql :examples))
+                  data
+                  (output stream-output))
+  (mechanics-format-examples (read-stream output) data))
+
+
+(defmethod visit ((visitor mechanics-generator-visitor)
+                  (type operator-node)
+                  (symbol (eql :description))
+                  data
+                  (output stream-output))
+  (mechanics-format-description (read-stream output) data))
+
+
+(defmethod visit ((visitor mechanics-generator-visitor)
+                  (type operator-node)
+                  (symbol (eql :exceptional-situations))
+                  data
+                  (output stream-output))
+  (mechanics-format-exceptional-situations (read-stream output) data))
+
+
+(defmethod visit ((visitor mechanics-generator-visitor)
+                  (type operator-node)
+                  (symbol (eql :notes))
+                  data
+                  (output stream-output))
+  (mechanics-format-notes (read-stream output) data))
+
+
+(defmethod visit ((visitor mechanics-generator-visitor)
+                  (type operator-node)
+                  (symbol (eql :side-effects))
+                  data
+                  (output stream-output))
+  (mechanics-format-side-effects (read-stream output) data))
+
+
+(defmethod visit ((visitor mechanics-generator-visitor)
+                  (type operator-node)
+                  (symbol (eql :returns))
+                  data
+                  (output stream-output))
+  (mechanics-format-returns (read-stream output) data))
+
+
+(defmethod visit ((visitor mechanics-generator-visitor)
+                  (type operator-node)
+                  (symbol (eql :syntax))
+                  data
+                  (output stream-output))
+  (mechanics-format-syntax (read-stream output) data))
+

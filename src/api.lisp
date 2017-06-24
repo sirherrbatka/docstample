@@ -9,10 +9,11 @@
 
 (defun set-documentation (symbol generator type accumulator &rest forms)
   (setf (documentation symbol (read-symbol type))
-        (generate-documentation-string generator
-                                       type
-                                       (make-string-output-stream)
-                                       forms))
+        (~> (generate-documentation-string generator
+                                           type
+                                           (make 'stream-output)
+                                           forms)
+            output-to-string))
   (unless (null accumulator)
     (accumulate-node accumulator symbol type forms))
   nil)

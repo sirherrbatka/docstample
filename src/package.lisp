@@ -17,14 +17,20 @@
    #:generate-documentation-string
    #:query-node
    #:read-symbol
+   #:get-visiting-order
+   #:visit
+   #:get-visitor
 
    #:generic-node
    #:operator-node
    #:function-node
    #:class-node
    #:macro-node
+   #:fundamental-output
+   #:stream-output
    #:fundamental-accumulator
    #:fundamental-node
+   #:fundamental-plist-visitor
    #:accumulated-node
    #:access-symbol
    #:access-type

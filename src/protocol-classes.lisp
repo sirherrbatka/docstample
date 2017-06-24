@@ -57,7 +57,7 @@
   (call-next-method))
 
 
-(defclass generic-node (operator-node)
+(defclass generic-node (function-node)
   ())
 
 
@@ -74,3 +74,22 @@
 (defmethod initialize-instance ((obj macro-node) &rest initargs)
   (write-symbol 'function obj)
   (call-next-method))
+
+
+(defclass fundamental-plist-visitor ()
+  ())
+
+
+(defclass fundamental-output ()
+  ())
+
+
+(defclass stream-output (fundamental-output)
+  ((%stream :reader read-stream
+            :initform (make-string-output-stream))))
+
+
+(defmethod output-to-string ((output stream-output))
+  (string-trim '(#\Space #\Newline #\Backspace #\Tab
+                 #\Linefeed #\Page #\Return #\Rubout)
+               (~> output read-stream get-output-stream-string)))
