@@ -18,5 +18,10 @@
                (:module "api"
                 :components ((:file "api")))
                (:module "mechanics"
-                :components ((:file "mechanics")))))
+                :components ((:file "package")
+                             (:file "write-functions")
+                             (:file "classes")
+                             (:file "variables")
+                             (:file "methods")
+                             (:file "mechanics")))))
 
