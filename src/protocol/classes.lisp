@@ -61,6 +61,19 @@
   ())
 
 
+(defclass fundamental-plist-visitor ()
+  ())
+
+
+(defclass fundamental-output ()
+  ())
+
+
+(defclass stream-output (fundamental-output)
+  ((%stream :reader read-stream
+            :initform (make-string-output-stream))))
+
+
 (defmethod initialize-instance ((obj generic-node) &rest initargs)
   (write-symbol 'function obj)
   (call-next-method))
@@ -76,20 +89,7 @@
   (call-next-method))
 
 
-(defclass fundamental-plist-visitor ()
-  ())
-
-
-(defclass fundamental-output ()
-  ())
-
-
-(defclass stream-output (fundamental-output)
-  ((%stream :reader read-stream
-            :initform (make-string-output-stream))))
-
-
-(defmethod output-to-string ((output stream-output))
-  (string-trim '(#\Space #\Newline #\Backspace #\Tab
-                 #\Linefeed #\Page #\Return #\Rubout)
-               (~> output read-stream get-output-stream-string)))
+(defclass categorized-accumulator (fundamental-accumulator)
+  ((%documented-elements :type hash-table
+                         :initform (make-hash-table :test 'equal)
+                         :reader read-documented-elements)))

@@ -1,11 +1,6 @@
 (in-package #:docstample)
 
 
-(defclass categorized-accumulator (fundamental-accumulator)
-  ((%documented-elements :type hash-table
-                         :initform (make-hash-table :test 'equal)
-                         :reader read-documented-elements)))
-
 
 (defmethod query-node ((accumulator categorized-accumulator) type id)
   (let ((package (symbol-package id)))
@@ -44,3 +39,8 @@
           (visit visitor type item f output)))))
   output)
 
+
+(defmethod output-to-string ((output stream-output))
+  (string-trim '(#\Space #\Newline #\Backspace #\Tab
+                 #\Linefeed #\Page #\Return #\Rubout)
+               (~> output read-stream get-output-stream-string)))

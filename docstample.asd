@@ -11,8 +11,12 @@
   :serial T
   :pathname "src"
   :components ((:file "package")
-               (:file "protocol-classes")
-               (:file "protocol-generics")
-               (:file "common")
-               (:file "mechanics")
-               (:file "api")))
+               (:module "protocol"
+                :components ((:file "classes")
+                             (:file "generics")
+                             (:file "common")))
+               (:module "api"
+                :components ((:file "api")))
+               (:module "mechanics"
+                :components ((:file "mechanics")))))
+
