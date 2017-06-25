@@ -22,6 +22,5 @@
                              (:file "write-functions")
                              (:file "classes")
                              (:file "variables")
-                             (:file "methods")
-                             (:file "mechanics")))))
+                             (:file "methods")))))
 

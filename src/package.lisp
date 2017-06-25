@@ -11,8 +11,11 @@
    #:<class>
    #:<macro>
 
-   #:set-documentation
    #:fundamental-accumulator
+   #:fundamental-generator
+   #:fundamental-plist-visitor
+
+   #:set-documentation
    #:make-accumulator
    #:generate-documentation-string
    #:query-node
@@ -20,6 +23,7 @@
    #:get-visiting-order
    #:visit
    #:get-visitor
+   #:read-stream
 
    #:generic-node
    #:operator-node
