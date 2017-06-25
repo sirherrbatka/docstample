@@ -8,4 +8,4 @@
   (:export
    #:<mechanics>
    #:mechanics-generator
-   #:mechanics-visitor))
+   #:mechanics-generator-visitor))
