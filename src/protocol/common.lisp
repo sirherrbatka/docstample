@@ -4,11 +4,11 @@
 
 (defmethod query-node ((accumulator categorized-accumulator) type id)
   (let ((package (symbol-package id)))
-    (when-let ((packages-table (gethash package
+    (when-let ((packages-table (gethash (package-name package)
                                         (read-documented-elements accumulator))))
       (when-let ((types-table (gethash type
                                        packages-table)))
-        (gethash id types-table)))))
+        (gethash (symbol-name id) types-table)))))
 
 
 (defmethod accumulate-node ((accumulator categorized-accumulator)
