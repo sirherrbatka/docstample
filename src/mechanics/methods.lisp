@@ -1,16 +1,24 @@
 (in-package #:docstample.mechanics)
 
 
-(defmethod get-visiting-order list ((visitor mechanics-generator-visitor) (type operator-node))
+(defmethod get-visiting-order list ((visitor mechanics-generator-visitor)
+                                    (type operator-node))
   '(:syntax :arguments-and-values :examples
     :description :notes))
 
 
-(defmethod get-visiting-order list ((visitor mechanics-generator-visitor) (type function-node))
-  '(:returns :side-effects :exceptional-situations))
+(let ((function-stuff '(:returns :side-effects :exceptional-situations)))
+  (defmethod get-visiting-order list ((visitor mechanics-generator-visitor)
+                                      (type function-node))
+    function-stuff)
+
+  (defmethod get-visiting-order list ((visitor mechanics-generator-visitor)
+                                      (type generic-node))
+    function-stuff))
 
 
-(defmethod get-visiting-order list ((visitor mechanics-generator-visitor) (type class-node))
+(defmethod get-visiting-order list ((visitor mechanics-generator-visitor)
+                                    (type record-node))
   '(:description))
 
 
@@ -29,7 +37,7 @@
 
 
 (defmethod visit ((visitor mechanics-generator-visitor)
-                  (type class-node)
+                  (type struct-node)
                   (symbol (eql :description))
                   data
                   (output stream-output))

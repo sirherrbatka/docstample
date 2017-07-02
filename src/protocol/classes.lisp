@@ -28,7 +28,15 @@
   ())
 
 
-(defclass class-node (fundamental-node)
+(defclass record-node (fundamental-node)
+  ())
+
+
+(defclass class-node (record-node)
+  ())
+
+
+(defclass struct-node (record-node)
   ())
 
 
@@ -75,17 +83,26 @@
 
 
 (defmethod initialize-instance ((obj generic-node) &rest initargs)
+  (declare (ignore initargs))
   (write-symbol 'function obj)
   (call-next-method))
 
 
 (defmethod initialize-instance ((obj class-node) &rest initargs)
+  (declare (ignore initargs))
   (write-symbol 'type obj)
   (call-next-method))
 
 
 (defmethod initialize-instance ((obj macro-node) &rest initargs)
+  (declare (ignore initargs))
   (write-symbol 'function obj)
+  (call-next-method))
+
+
+(defmethod initialize-instance ((obj struct-node) &rest initargs)
+  (declare (ignore initargs))
+  (write-symbol 'type obj)
   (call-next-method))
 
 

@@ -9,6 +9,7 @@
    #:<function>
    #:<generic>
    #:<class>
+   #:<struct>
    #:<macro>
 
    #:fundamental-accumulator
@@ -28,7 +29,9 @@
    #:generic-node
    #:operator-node
    #:function-node
+   #:record-node
    #:class-node
+   #:struct-node
    #:macro-node
    #:fundamental-output
    #:stream-output

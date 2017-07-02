@@ -4,6 +4,7 @@
 (def <function> (make-instance 'function-node))
 (def <generic> (make-instance 'generic-node))
 (def <class> (make-instance 'class-node))
+(def <struct> (make-instance 'struct-node))
 (def <macro> (make-instance 'macro-node))
 
 
