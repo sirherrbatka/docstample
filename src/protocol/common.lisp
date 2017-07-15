@@ -21,7 +21,7 @@
 
 (defmethod generate-documentation-string ((generator fundamental-generator)
                                           (type fundamental-node)
-                                          (output fundamental-output)
+                                          output
                                           (forms list))
   (let* ((visitor (get-visitor generator))
          (order (get-visiting-order visitor type)))
