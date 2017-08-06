@@ -41,9 +41,9 @@
 
 
 (defclass accumulated-node ()
-  ((%symbol :type symbol
-            :initarg :symbol
-            :accessor access-symbol)
+  ((%name :type (or list symbol)
+          :initarg :name
+          :accessor access-name)
    (%type :type fundamental-node
           :initarg :type
           :accessor access-type)
@@ -52,10 +52,10 @@
            :accessor access-forms)))
 
 
-(defun make-accumulated-node (symbol type forms)
+(defun make-accumulated-node (name type forms)
   (declare (optimize (safety 3)))
   (make 'accumulated-node
-        :symbol symbol
+        :name name
         :type type
         :forms forms))
 

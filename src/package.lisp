@@ -39,6 +39,6 @@
    #:fundamental-node
    #:fundamental-plist-visitor
    #:accumulated-node
-   #:access-symbol
+   #:access-name
    #:access-type
    #:access-forms))
