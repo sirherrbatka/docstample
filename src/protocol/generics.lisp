@@ -12,7 +12,8 @@
                                        (type fundamental-node))
   (~>> (call-next-method)
        reverse
-       (apply #'append)))
+       (apply #'append)
+       remove-duplicates))
 
 
 (defgeneric get-visitor (generator))

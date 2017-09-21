@@ -3,8 +3,7 @@
 
 (defmethod get-visiting-order list ((visitor mechanics-generator-visitor)
                                     (type operator-node))
-  '(:syntax :arguments-and-values :examples
-    :description :notes))
+  '(:syntax :arguments-and-values :examples :description :notes))
 
 
 (let ((function-stuff '(:returns :side-effects :exceptional-situations)))
