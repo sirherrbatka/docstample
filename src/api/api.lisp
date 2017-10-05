@@ -16,7 +16,12 @@
                                            forms)
             output-to-string))
   (unless (null accumulator)
-    (accumulate-node accumulator symbol type forms))
+    (accumulate-node accumulator symbol type forms)
+    (when-let ((examples (getf forms :examples)))
+      (apply #'accumulate-examples
+             accumulator
+             (get-object symbol type)
+             examples)))
   nil)
 
 

@@ -109,4 +109,8 @@
 (defclass categorized-accumulator (fundamental-accumulator)
   ((%documented-elements :type hash-table
                          :initform (make-hash-table :test 'equal)
-                         :reader read-documented-elements)))
+                         :reader read-documented-elements)
+   (%examples-to-test :type hash-table
+                      :initform (make-hash-table :test 'eq
+                                                 :weakness :key)
+                      :reader read-examples-to-test)))

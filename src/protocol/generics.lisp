@@ -8,6 +8,15 @@
   (:method-combination list))
 
 
+(defgeneric accumulate-examples (accumulator object &rest examples))
+
+
+(defgeneric run-examples (accumulator))
+
+
+(defgeneric get-object (symbol type))
+
+
 (defmethod get-visiting-order :around ((plist-visitor fundamental-plist-visitor)
                                        (type fundamental-node))
   (~>> (call-next-method)

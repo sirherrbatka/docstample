@@ -36,3 +36,22 @@
   (string-trim '(#\Space #\Newline #\Backspace #\Tab
                  #\Linefeed #\Page #\Return #\Rubout)
                (~> output read-stream get-output-stream-string)))
+
+
+(defmethod accumulate-examples (accumulator object &rest examples)
+  (flet ((build-form (form)
+           (compile nil `(lambda () ,form))))
+    (setf (gethash object (read-examples-to-test accumulator))
+          (mapcar #'build-form examples))
+    accumulator))
+
+
+(defmethod get-object (sym (type operator-node))
+  (symbol-function sym))
+
+
+(defmethod run-examples ((accumulator categorized-accumulator))
+  (iterate
+    (for (key value) in-hashtable (read-examples-to-test accumulator))
+    (map nil (compose #'funcall (curry #'compile nil)) value))
+  accumulator)

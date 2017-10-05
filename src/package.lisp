@@ -5,40 +5,38 @@
   (:use #:common-lisp #:serapeum #:alexandria #:iterate)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export
-   #:<mechanics>
+   #:<class>
    #:<function>
    #:<generic>
-   #:<class>
-   #:<struct>
    #:<macro>
-
-   #:fundamental-accumulator
-   #:fundamental-generator
-   #:fundamental-plist-visitor
-
-   #:set-documentation
-   #:make-accumulator
-   #:generate-documentation-string
-   #:query-node
-   #:read-symbol
-   #:get-visiting-order
-   #:visit
-   #:get-visitor
-   #:read-stream
-
-   #:generic-node
-   #:operator-node
-   #:function-node
-   #:record-node
-   #:class-node
-   #:struct-node
-   #:macro-node
-   #:fundamental-output
-   #:stream-output
-   #:fundamental-accumulator
-   #:fundamental-node
-   #:fundamental-plist-visitor
-   #:accumulated-node
+   #:<mechanics>
+   #:<struct>
+   #:access-forms
    #:access-name
    #:access-type
-   #:access-forms))
+   #:accumulated-node
+   #:class-node
+   #:function-node
+   #:fundamental-accumulator
+   #:fundamental-accumulator
+   #:fundamental-generator
+   #:fundamental-node
+   #:fundamental-output
+   #:fundamental-plist-visitor
+   #:fundamental-plist-visitor
+   #:generate-documentation-string
+   #:generic-node
+   #:get-visiting-order
+   #:get-visitor
+   #:macro-node
+   #:make-accumulator
+   #:operator-node
+   #:query-node
+   #:read-stream
+   #:read-symbol
+   #:record-node
+   #:run-examples
+   #:set-documentation
+   #:stream-output
+   #:struct-node
+   #:visit))
