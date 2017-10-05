@@ -40,7 +40,7 @@
 
 (defmethod accumulate-examples (accumulator object &rest examples)
   (flet ((build-form (form)
-           (compile nil `(lambda () ,form))))
+           `(lambda () ,form)))
     (setf (gethash object (read-examples-to-test accumulator))
           (mapcar #'build-form examples))
     accumulator))
