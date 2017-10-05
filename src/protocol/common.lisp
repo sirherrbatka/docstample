@@ -39,11 +39,9 @@
 
 
 (defmethod accumulate-examples (accumulator object &rest examples)
-  (flet ((build-form (form)
-           `(lambda () ,form)))
-    (setf (gethash object (read-examples-to-test accumulator))
-          (mapcar #'build-form examples))
-    accumulator))
+  (setf (gethash object (read-examples-to-test accumulator))
+        examples)
+  accumulator)
 
 
 (defmethod get-object (sym (type operator-node))
@@ -53,5 +51,9 @@
 (defmethod run-examples ((accumulator categorized-accumulator))
   (iterate
     (for (key value) in-hashtable (read-examples-to-test accumulator))
-    (map nil (compose #'funcall (curry #'compile nil)) value))
+    (map nil (compose #'funcall
+                      (curry #'compile nil)
+                      (curry #'list 'lambda nil)
+                      #'read-from-string)
+         value))
   accumulator)

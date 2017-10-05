@@ -30,9 +30,7 @@
 (defun mechanics-format-examples (output examples)
   (format output "~%Examples~%")
   (dolist (example examples)
-    (format output " ~(~a~) -> ~{~a ~}~%"
-            (first example)
-            (rest example)))
+    (format output example))
   (format output "~%"))
 
 
