@@ -35,3 +35,11 @@
   `(defparameter ,name
      (and *accumulate-docs*
           (docstample:make-accumulator))))
+
+
+(defun enable-docs-accumulation ()
+  (setf *accumulate-docs* t))
+
+
+(defun disable-docs-accumulation ()
+  (setf *accumulate-docs* nil))

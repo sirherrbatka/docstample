@@ -18,6 +18,8 @@
    #:accumulated-node
    #:class-node
    #:define-accumulated-docs
+   #:enable-docs-accumulation
+   #:disable-docs-accumulation
    #:function-node
    #:fundamental-accumulator
    #:fundamental-accumulator
