@@ -31,7 +31,7 @@
   (curry #'make 'categorized-accumulator))
 
 
-(defmacro declare-accumulated-docs (name)
+(defmacro define-accumulated-docs (name)
   `(defparameter ,name
      (and *accumulate-docs*
           (docstample:make-accumulator))))

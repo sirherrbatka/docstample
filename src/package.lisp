@@ -12,12 +12,12 @@
    #:<mechanics>
    #:<struct>
    #:access-forms
-   #:accumulate-docs
-   #:declare-accumulated-docs
    #:access-name
    #:access-type
+   #:accumulate-docs
    #:accumulated-node
    #:class-node
+   #:define-accumulated-docs
    #:function-node
    #:fundamental-accumulator
    #:fundamental-accumulator
