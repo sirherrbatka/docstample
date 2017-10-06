@@ -7,6 +7,8 @@
 (def <struct> (make-instance 'struct-node))
 (def <macro> (make-instance 'macro-node))
 
+(defvar *accumulate-docs* nil)
+
 
 (defun set-documentation (symbol generator type accumulator &rest forms)
   (setf (documentation symbol (read-symbol type))
@@ -27,3 +29,9 @@
 
 (defalias make-accumulator
   (curry #'make 'categorized-accumulator))
+
+
+(defmacro declare-accumulated-docs (name)
+  `(defparameter ,name
+     (and *accumulate-docs*
+          (docstample:make-accumulator))))

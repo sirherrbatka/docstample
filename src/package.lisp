@@ -12,6 +12,8 @@
    #:<mechanics>
    #:<struct>
    #:access-forms
+   #:accumulate-docs
+   #:declare-accumulated-docs
    #:access-name
    #:access-type
    #:accumulated-node
