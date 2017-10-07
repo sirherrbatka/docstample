@@ -7,6 +7,7 @@
 (def <struct> (make-instance 'struct-node))
 (def <macro> (make-instance 'macro-node))
 
+
 (defvar *accumulate-docs* nil)
 
 
