@@ -6,6 +6,7 @@
 (def <class> (make-instance 'class-node))
 (def <struct> (make-instance 'struct-node))
 (def <macro> (make-instance 'macro-node))
+(def <error> (make-instance 'error-node))
 
 
 (defvar *accumulate-docs* nil)

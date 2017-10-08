@@ -36,7 +36,7 @@
 
 
 (defmethod visit ((visitor mechanics-generator-visitor)
-                  (type struct-node)
+                  (type record-node)
                   (symbol (eql :description))
                   data
                   (output stream-output))

@@ -6,6 +6,7 @@
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export
    #:<class>
+   #:<error>
    #:<function>
    #:<generic>
    #:<macro>
@@ -17,9 +18,11 @@
    #:accumulate-docs
    #:accumulated-node
    #:class-node
+   #:condition-node
    #:define-accumulated-docs
-   #:enable-docs-accumulation
    #:disable-docs-accumulation
+   #:enable-docs-accumulation
+   #:error-node
    #:function-node
    #:fundamental-accumulator
    #:fundamental-accumulator

@@ -40,6 +40,14 @@
   ())
 
 
+(defclass condition-node (record-node)
+  ())
+
+
+(defclass error-node (condition-node)
+  ())
+
+
 (defclass accumulated-node ()
   ((%name :type (or list symbol)
           :initarg :name
@@ -105,6 +113,21 @@
   (write-symbol 'type obj)
   (call-next-method))
 
+
+(defmethod initialize-instance ((obj error-node) &rest initargs)
+  (declare (ignore initargs))
+  (write-symbol 'type obj)
+  (call-next-method))
+
+
+(defclass categorized-accumulator (fundamental-accumulator)
+  ((%documented-elements :type hash-table
+                         :initform (make-hash-table :test 'equal)
+                         :reader read-documented-elements)
+   (%examples-to-test :type hash-table
+                      :initform (make-hash-table :test 'eq
+                                                 :weakness :key)
+                      :reader read-examples-to-test)))
 
 (defclass categorized-accumulator (fundamental-accumulator)
   ((%documented-elements :type hash-table
